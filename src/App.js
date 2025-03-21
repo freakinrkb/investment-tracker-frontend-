@@ -52,7 +52,7 @@ const App = () => {
       } catch (err) {
         console.error("Exchange rate fetch error:", err);
         setError(`Exchange rate error: ${err.message}`);
-        setExchangeRate(83); // Fallback
+        setExchangeRate(83);
       }
     };
     fetchExchangeRate();
@@ -159,20 +159,23 @@ const App = () => {
     setShowEditModal(true);
   };
 
-  const saveEdit = async () => {
-    if (!editData) return;
+  const saveEdit = async (updatedData) => {
+    if (!updatedData) return;
     try {
+      console.log('Sending updated data to backend:', updatedData);
       const response = await axios.put(
-        `${API_BASE_URL}/investments/${editData._id}`,
-        { ...editData, currency },
+        `${API_BASE_URL}/investments/${updatedData._id}`,
+        { ...updatedData, currency },
         { headers: { Authorization: `Bearer ${token}` } }
       );
+      console.log('Backend response:', response.data);
       setInvestments((prev) =>
-        prev.map((inv, i) => (i === editData.index ? response.data : inv))
+        prev.map((inv, i) => (i === updatedData.index ? response.data : inv))
       );
       setShowEditModal(false);
       setError(null);
     } catch (err) {
+      console.error('Update error:', err.response?.data || err.message);
       setError(err.response?.data?.message || "Failed to update investment");
     }
   };
