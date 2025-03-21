@@ -1,38 +1,449 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
+/* Reset and global styles */
+body {
+  font-family: 'Arial', sans-serif;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
   min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  transition: background 0.3s;
+}
+
+body.dark-mode {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%) !important;
+  color: #ecf0f1;
+}
+
+/* Container */
+.container {
+  max-width: 1200px;
+  padding-top: 20px;
+}
+
+/* Header styling */
+h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #2c3e50;
+  text-align: center;
+  margin-bottom: 1rem;
+  padding: 10px;
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 10px;
+}
+
+.dark-mode h1 {
+  color: #ecf0f1;
+  background-color: rgba(26, 26, 46, 0.9);
+}
+
+/* Card styling */
+.card {
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.dark-mode .card {
+  background: linear-gradient(145deg, #2c2c54 0%, #3a3a70 100%);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Investment Summary styling */
+.investment-summary {
+  padding: 20px;
+  border-radius: 15px;
+  background: linear-gradient(145deg, #e6e6fa 0%, #d3d3e0 100%);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+.dark-mode .investment-summary {
+  background: linear-gradient(145deg, #2c2c54 0%, #3a3a70 100%);
+  color: #ecf0f1;
+}
+
+.investment-summary h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #2c3e50;
+  margin-bottom: 15px;
+}
+
+.dark-mode .investment-summary h3 {
+  color: #ecf0f1;
+}
+
+.investment-summary p {
+  font-size: 1.1rem;
+  margin: 5px 0;
+  color: #34495e;
+}
+
+.dark-mode .investment-summary p {
+  color: #dfe6e9;
+}
+
+.investment-summary .profit-loss {
+  font-weight: bold;
+  color: #27ae60; /* Green for profit */
+}
+
+.investment-summary .profit-loss.negative {
+  color: #e74c3c; /* Red for loss */
+}
+
+/* Form and input styling */
+.form-section {
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background: linear-gradient(145deg, #e6e6fa 0%, #d3d3e0 100%);
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.dark-mode .form-section {
+  background: linear-gradient(145deg, #2c2c54 0%, #3a3a70 100%);
+}
+
+.form-section .row {
+  margin-bottom: 1rem;
+}
+
+.form-section .col {
+  padding-right: 1rem;
+  padding-left: 1rem;
+}
+
+.form-section .form-check {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.form-section .btn {
+  margin-top: 1rem;
+  width: 100%;
+  max-width: 200px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.form-control {
+  border-radius: 10px;
+  border: 1px solid #ced4da;
+  padding: 10px;
+  transition: border-color 0.2s, box-shadow 0.3s;
+  color: #000000;
+}
+
+/* Different colors for different input types */
+.form-control[type="text"] {
+  background: linear-gradient(145deg, #e6f0fa 0%, #d6e4f0 100%);
+}
+
+.form-control[type="date"] {
+  background: linear-gradient(145deg, #fce4ec 0%, #f8c1cc 100%);
+}
+
+.form-control[type="number"] {
+  background: linear-gradient(145deg, #e0f7fa 0%, #b2ebf2 100%);
+}
+
+.form-control[as="select"] {
+  background: linear-gradient(145deg, #f3e5f5 0%, #e1bee7 100%);
+}
+
+.form-control:focus {
+  border-color: #3498db;
+  box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
+}
+
+.dark-mode .form-control {
+  background: #34495e;
+  color: #ffffff;
+  border-color: #4a6074;
+}
+
+.dark-mode .form-control:focus {
+  border-color: #3498db;
+  box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
+}
+
+.dark-mode .form-label {
+  color: #ecf0f1 !important;
+}
+
+/* Custom Checkbox Styling (Adjusted for visibility) */
+.form-check-input {
+  margin-right: 8px;
+  width: 1.2em;
+  height: 1.2em;
+  border: 2px solid #2c3e50;
+  border-radius: 4px;
+  background-color: #ffffff;
+  transition: all 0.3s;
+  cursor: pointer;
+}
+
+.dark-mode .form-check-input {
+  border-color: #ecf0f1;
+  background-color: #2c2c54;
+}
+
+.form-check-input:checked {
+  background-color: #3498db;
+  border-color: #3498db;
+}
+.form-check-input:checked::after {
+  content: '\2713'; /* Checkmark */
+  color: #ffffff;
+  font-size: 0.9em;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.dark-mode .form-check-input:checked {
+  background-color: #3498db;
+  border-color: #3498db;
+}
+
+.form-check-label {
+  margin-left: 8px; /* Adjust spacing between checkbox and label */
+  font-weight: 500;
+  color: #2c3e50;
+  line-height: 1.5;
+}
+
+.dark-mode .form-check-label {
+  color: #ecf0f1;
+}
+
+/* Button styling */
+.btn {
+  border-radius: 10px;
+  padding: 10px 20px;
+  font-weight: 600;
+  transition: all 0.3s;
+}
+
+.btn-primary {
+  background: linear-gradient(145deg, #3498db 0%, #2980b9 100%);
+  border: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.btn-primary:hover {
+  background: linear-gradient(145deg, #2980b9 0%, #1f6391 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.btn-danger {
+  background: linear-gradient(145deg, #e74c3c 0%, #c0392b 100%);
+  border: none;
+}
+
+.btn-danger:hover {
+  background: linear-gradient(145deg, #c0392b 0%, #a32f24 100%);
+}
+
+.btn-secondary {
+  background: linear-gradient(145deg, #7f8c8d 0%, #6c757d 100%);
+  border: none;
+}
+
+.btn-secondary:hover {
+  background: linear-gradient(145deg, #6c757d 0%, #5a6268 100%);
+}
+
+.dark-mode .btn-secondary {
+  background: #7f8c8d;
+  border: none;
+  color: #ffffff;
+}
+
+.dark-mode .btn-secondary:hover {
+  background: #6c757d;
+}
+
+.dark-mode .btn-primary {
+  background: linear-gradient(145deg, #3498db 0%, #2980b9 100%);
+  border: none;
+  color: #ffffff;
+}
+
+.dark-mode .btn-primary:hover {
+  background: linear-gradient(145deg, #2980b9 0%, #1f6391 100%);
+}
+
+/* Table styling */
+.table {
+  background-color: #ffffff;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-top: 2rem;
+}
+
+.dark-mode .table {
+  background-color: #2c2c54;
+  color: #ffffff;
+}
+
+.table th {
+  background: linear-gradient(145deg, #3498db 0%, #2980b9 100%);
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.table th,
+.table td {
+  vertical-align: middle;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.dark-mode .table-striped tbody tr:nth-of-type(odd) {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.dark-mode .table-hover tbody tr:hover {
+  background-color: #404040;
+}
+
+.light-mode .table-hover tbody tr:hover {
+  background-color: #e9ecef;
+}
+
+/* Alert styling */
+.alert {
+  border-radius: 10px;
+  margin-bottom: 1rem;
+}
+
+.dark-mode .alert {
+  background-color: #333333;
+  border-color: #444444;
+  color: #ffffff;
+}
+
+/* Modal styling for dark mode */
+.dark-mode .modal-content {
+  background: linear-gradient(145deg, #2c2c54 0%, #3a3a70 100%);
+  color: #ecf0f1;
+  border: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+.dark-mode .modal-header {
+  border-bottom: 1px solid #4a6074;
+}
+
+.dark-mode .modal-footer {
+  border-top: 1px solid #4a6074;
+}
+
+.dark-mode .modal-title {
+  color: #ecf0f1;
+}
+
+/* Header controls styling */
+.header-controls .btn {
+  margin-left: 0.5rem;
+}
+
+.header-controls .form-select {
+  margin-left: 0.5rem;
+  width: auto;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 2rem;
   }
-  to {
-    transform: rotate(360deg);
+  .card {
+    margin-bottom: 1rem;
   }
 }
+body[data-bs-theme="dark"] .card {
+  background-color: #343a40;
+  color: #ffffff;
+}
+
+body[data-bs-theme="dark"] .btn-primary {
+  background-color: #0d6efd;
+  border-color: #0d6efd;
+}
+
+/* Center the login/register forms */
+.min-vh-100 {
+  min-height: 100vh;
+}
+
+/* Style the login/register container */
+.login-container {
+  background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+}
+
+/* Style the login/register card */
+.login-card {
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+  transition: transform 0.2s ease-in-out;
+}
+
+.login-card:hover {
+  transform: translateY(-5px);
+}
+
+/* Style the form inputs */
+.form-control.rounded-pill {
+  border: 1px solid #ced4da;
+  padding: 10px 20px;
+  transition: border-color 0.3s ease;
+}
+
+.form-control.rounded-pill:focus {
+  border-color: #0d6efd;
+  box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+}
+
+/* Style the primary button */
+.btn-primary.rounded-pill {
+  padding: 10px;
+  font-weight: 500;
+  background: linear-gradient(90deg, #0d6efd 0%, #6610f2 100%);
+  border: none;
+  transition: background 0.3s ease;
+}
+
+.btn-primary.rounded-pill:hover {
+  background: linear-gradient(90deg, #0b5ed7 0%, #5a0de0 100%);
+}
+
+.btn-primary.rounded-pill:disabled {
+  background: #adb5bd;
+  opacity: 0.7;
+}
+
+/* Style the toggle link */
+.btn-link {
+  transition: color 0.3s ease;
+}
+
+.btn-link:hover {
+  color: #0b5ed7;
+  text-decoration: underline;
+}
+
