@@ -32,7 +32,7 @@ const App = () => {
   const [editData, setEditData] = useState(null);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [sortOrder, setSortOrder] = useState("desc");
-  const [currency, setCurrency] = useState("USD");
+  const [currency, setCurrency] = useState("INR");
 
   useEffect(() => {
     document.body.classList.toggle("dark-mode", darkMode);

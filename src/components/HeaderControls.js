@@ -1,5 +1,5 @@
 import React from "react";
-import { Row, Col, Button, Form } from "react-bootstrap";
+import { Button, Form, Row, Col } from "react-bootstrap";
 
 const HeaderControls = ({
   darkMode,
@@ -10,35 +10,46 @@ const HeaderControls = ({
   setCurrency,
   handleLogout,
   currentUser,
-}) => {
-  return (
-    <Row className="align-items-center justify-content-end">
-      <Col xs="auto">
-        <Button
-          variant={darkMode ? "outline-light" : "outline-dark"}
-          onClick={() => setDarkMode(!darkMode)}
+}) => (
+  <div className="header-controls mb-4">
+    <Row className="align-items-center justify-content-center g-2">
+      <Col xs={12} sm={6} md={3} className="d-flex justify-content-center">
+        <Form.Check
+          type="switch"
+          id="dark-mode-switch"
+          label={darkMode ? "Dark Mode" : "Light Mode"}
+          checked={darkMode}
+          onChange={() => setDarkMode(!darkMode)}
+        />
+      </Col>
+      <Col xs={12} sm={6} md={3} className="d-flex justify-content-center">
+        <Form.Select
+          value={sortOrder}
+          onChange={(e) => setSortOrder(e.target.value)}
+          className="w-100"
         >
-          {darkMode ? "Light Mode" : "Dark Mode"}
-        </Button>
+          <option value="desc">Sort: Newest First</option>
+          <option value="asc">Sort: Oldest First</option>
+        </Form.Select>
       </Col>
-      <Col xs="auto">
-        <Button variant="outline-secondary" onClick={() => setSortOrder(sortOrder === "asc" ? "desc" : "asc")}>
-          Sort: {sortOrder === "asc" ? "Ascending" : "Descending"}
-        </Button>
-      </Col>
-      <Col xs="auto">
-        <Form.Select value={currency} onChange={(e) => setCurrency(e.target.value)}>
+      <Col xs={12} sm={6} md={3} className="d-flex justify-content-center">
+        <Form.Select
+          value={currency}
+          onChange={(e) => setCurrency(e.target.value)}
+          className="w-100"
+        >
           <option value="USD">USD</option>
           <option value="INR">INR</option>
         </Form.Select>
       </Col>
-      <Col xs="auto">
-        <Button variant="outline-danger" onClick={handleLogout}>
-          Logout ({currentUser})
+      <Col xs={12} sm={6} md={3} className="d-flex justify-content-center align-items-center">
+        <span className="me-2 text-nowrap">Welcome, {currentUser}</span>
+        <Button variant="danger" onClick={handleLogout}>
+          Logout
         </Button>
       </Col>
     </Row>
-  );
-};
+  </div>
+);
 
 export default HeaderControls;
