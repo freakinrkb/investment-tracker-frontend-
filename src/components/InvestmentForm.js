@@ -169,7 +169,7 @@ const InvestmentForm = ({ handleSubmit, isLoading, exchangeRate, currency }) => 
                 name="bettingId"
                 value={formData.bettingId}
                 onChange={handleChange}
-                placeholder="e.g., BetID1"
+                placeholder="name of both id's"
                 required
               />
             </Form.Group>
