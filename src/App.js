@@ -134,19 +134,6 @@ const App = () => {
       setInvestments((prev) => [...prev, response.data]);
       setShowSuccess(true);
       setTimeout(() => setShowSuccess(false), 2000);
-      setFormData({
-        team1: "",
-        team2: "",
-        date: "",
-        odds1: "",
-        odds2: "",
-        sixTeam1: false,
-        sixTeam2: false,
-        winner: "none",
-        cashOutTeam: "",
-        customCashOut: "",
-        bettingId: "",
-      });
       setError(null);
     } catch (err) {
       console.error("Submit investment error:", err);

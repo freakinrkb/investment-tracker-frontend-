@@ -12,17 +12,39 @@ const InvestmentForm = ({ handleSubmit, isLoading, exchangeRate, currency }) => 
     sixTeam2: false,
     winner: "none",
     cashOutTeam: "",
-    customCashOut: "",
-    bettingId: "", // Added bettingId
+    customCashOut: 0,
+    bettingId: "",
+    customBaseAmount: 25,
+    currency: currency || "INR",
   });
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
+    const newValue = type === "number" ? (value === "" ? 0 : parseFloat(value)) : type === "checkbox" ? checked : value;
     setFormData((prev) => ({
       ...prev,
-      [name]: type === "checkbox" ? checked : value,
+      [name]: newValue,
     }));
-    console.log(`${name} changed to ${type === "checkbox" ? checked : value}`); // Debug log
+    console.log(`${name} changed to ${newValue}`); // Debug log
+  };
+
+  // Function to manually reset the form
+  const handleClearForm = () => {
+    setFormData({
+      team1: "",
+      team2: "",
+      date: "",
+      odds1: 0,
+      odds2: 0,
+      sixTeam1: false,
+      sixTeam2: false,
+      winner: "none",
+      cashOutTeam: "",
+      customCashOut: 0,
+      bettingId: "",
+      customBaseAmount: 25,
+      currency: currency || "INR",
+    });
   };
 
   return (
@@ -76,6 +98,7 @@ const InvestmentForm = ({ handleSubmit, isLoading, exchangeRate, currency }) => 
               <Form.Control
                 type="number"
                 step="0.01"
+                min="0.01"
                 name="odds1"
                 value={formData.odds1}
                 onChange={handleChange}
@@ -90,6 +113,7 @@ const InvestmentForm = ({ handleSubmit, isLoading, exchangeRate, currency }) => 
               <Form.Control
                 type="number"
                 step="0.01"
+                min="0.01"
                 name="odds2"
                 value={formData.odds2}
                 onChange={handleChange}
@@ -151,6 +175,7 @@ const InvestmentForm = ({ handleSubmit, isLoading, exchangeRate, currency }) => 
               <Form.Control
                 type="number"
                 step="0.01"
+                min="0"
                 name="customCashOut"
                 value={formData.customCashOut}
                 onChange={handleChange}
@@ -174,11 +199,31 @@ const InvestmentForm = ({ handleSubmit, isLoading, exchangeRate, currency }) => 
               />
             </Form.Group>
           </Col>
-          <Col md={8}></Col> {/* Placeholder to balance the layout */}
+          <Col md={4}>
+            <Form.Group className="mb-3">
+              <Form.Label>Custom Base Amount (USD)</Form.Label>
+              <Form.Control
+                type="number"
+                step="0.01"
+                min="0.01"
+                name="customBaseAmount"
+                value={formData.customBaseAmount}
+                onChange={handleChange}
+                placeholder="Enter base amount in USD (default is 25)"
+                required
+              />
+            </Form.Group>
+          </Col>
+          <Col md={4}></Col> {/* Placeholder to balance the layout */}
         </Row>
-        <Button variant="primary" type="submit" disabled={isLoading}>
-          Add Investment ({currency})
-        </Button>
+        <div className="d-flex gap-2">
+          <Button variant="primary" type="submit" disabled={isLoading}>
+            Add Investment ({currency})
+          </Button>
+          <Button variant="secondary" type="button" onClick={handleClearForm}>
+            Clear Form
+          </Button>
+        </div>
       </Form>
     </div>
   );
